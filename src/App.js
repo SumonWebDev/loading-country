@@ -5,6 +5,7 @@ import Country from './componants/Country/Country';
 
 function App() {
   const [countries,setCountries]= useState([]);
+  const [cart,setCart]=useState([]);
   useEffect(()=>{
     fetch('https://restcountries.eu/rest/v2/all')
     .then(res=>res.json())
@@ -13,12 +14,14 @@ function App() {
 
   },[])
   const handleAddCountry=(country)=>{
-    console.log('country added',country)
+    const newCart=[...cart,country];
+    setCart(newCart);
   }
   return (
     <div className="App">
     <h3>loading country:{countries.length}</h3>
-    <h4>country added</h4>
+    <h4>country added:{cart.length}</h4>
+   
     <ul>
       {
         countries.map(country=><Country country={country} handleAddCountry={handleAddCountry} key={country.alpha3Code}></Country>)
